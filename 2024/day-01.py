@@ -1,6 +1,8 @@
 from aocd import data
 
 # Rustier than I realized... Still, not too bad.
+# Relying on list comprehensions more than I should. Need to brush up on map/filter
+# Rewrote things to be a bit more readable, but there's definitely simpler ways to do this.
 
 def part2(left, right):
     i = 0
@@ -16,8 +18,9 @@ def part2(left, right):
     print(result)
 
 def main():
-    lists = [sorted(list(x)) for x in zip(*[[int(x) for x in row.split()] for row in data.split('\n')])]
-    result = sum([abs(int(lists[1][i])-int(lists[0][i])) for i in range(len(lists[0]))])
+    rows = [list(map(int,row.split())) for row in data.split('\n')]
+    lists = [sorted(list(x)) for x in zip(*rows)]
+    result = sum([abs(lists[1][i]-lists[0][i]) for i in range(len(lists[0]))])
     print(result)
     part2(lists[0],lists[1])
 
